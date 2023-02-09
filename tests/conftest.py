@@ -1,4 +1,7 @@
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from modules.api.clients.github import Github
 
 
@@ -27,3 +30,11 @@ def user():
 @pytest.fixture
 def github_api():
     yield Github()
+
+
+@pytest.fixture
+def driver():
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    yield driver
+    driver.close()
+
